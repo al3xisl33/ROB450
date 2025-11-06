@@ -1,3 +1,5 @@
 To rezero:
 moteus_tool --target 1 --zero-offset
 
+To write a config file (don't think it works):
+moteus_tool --write-config [FILE]

@@ -28,3 +28,6 @@ target_link_libraries(multiple_cycle moteus::cpp)
 add_executable(1_cycle 1_cycle.cc)
 target_link_libraries(1_cycle moteus::cpp)
 
+add_executable(torque_control torque_control.cc)
+target_link_libraries(torque_control moteus::cpp)
+

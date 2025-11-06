@@ -26,10 +26,14 @@ int main(int argc, char** argv) {
   using namespace mjbots;
 
   moteus::Controller::DefaultArgProcess(argc, argv);
-
+  
   moteus::Controller::Options options;
   options.id = 1;
   
+  options.position_format.kp_scale = mjbots::moteus::kFloat;
+  options.position_format.kd_scale = mjbots::moteus::kFloat;
+  options.position_format.ilimit_scale = mjbots::moteus::kFloat;
+  options.position_format.feedforward_torque = mjbots::moteus::kFloat;
 
   // Only position and velocity are sent by default when sending
   // position mode commands.  If you want to send any other fields you
@@ -67,13 +71,18 @@ int main(int argc, char** argv) {
     }
   };
 
-  cmd.position = 10;
-  cmd.accel_limit = 2.0;
 
-  print(controller.SetPositionWaitComplete(cmd, 0.01));
 
-  // cmd.position = 0.0;
-  // print(controller.SetPositionWaitComplete(cmd, 0.01));
+cmd.position = std::numeric_limits<double>::quiet_NaN();
+cmd.velocity = 0.0;
+cmd.kp_scale = 0.0;
+cmd.kd_scale = 0.0;
+cmd.ilimit_scale = 0.0;
+cmd.feedforward_torque = 0.04; 
+
+while(1){
+  auto result = controller.SetPosition(cmd);
+}
 
   return 0;
 }
