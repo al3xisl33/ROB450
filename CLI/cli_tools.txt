@@ -1,0 +1,3 @@
+To rezero:
+moteus_tool --target 1 --zero-offset
+

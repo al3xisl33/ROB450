@@ -17,13 +17,17 @@ async def main():
     # Clear any outstanding faults.
     await c.set_stop()
     await c.set_position(0)
+    val = 0;
+    add = 2; 
+
 
     while True:
         # This will periodically command and poll the controller until
         # the target position achieves the commanded value.
         result = await c.set_position_wait_complete(
-            position=0.5, velocity_limit=3.0, accel_limit=2.0)
+            position=val, velocity_limit=3.0, accel_limit=2.0)
         # print(result)
+        val += add; 
 
         print("\nQuerying motor status...")
         result = await c.query()
@@ -32,15 +36,15 @@ async def main():
         print(f"Motor temperature: {result.values[moteus.Register.TEMPERATURE]:.1f}°C")
 
         # Then go back to zero, and eventually try again.
-        result = await c.set_position_wait_complete(
-            position=0.0, accel_limit=2.0)
+        # result = await c.set_position_wait_complete(
+        #     position=0.0, accel_limit=2.0)
         # print(result)
 
-        print("\nQuerying motor status...")
-        result = await c.query()
-        print(f"Current position: {result.values[moteus.Register.POSITION]:.3f} rev")
-        print(f"Current velocity: {result.values[moteus.Register.VELOCITY]:.3f} rev/s")
-        print(f"Motor temperature: {result.values[moteus.Register.TEMPERATURE]:.1f}°C")
+        # print("\nQuerying motor status...")
+        # result = await c.query()
+        # print(f"Current position: {result.values[moteus.Register.POSITION]:.3f} rev")
+        # print(f"Current velocity: {result.values[moteus.Register.VELOCITY]:.3f} rev/s")
+        # print(f"Motor temperature: {result.values[moteus.Register.TEMPERATURE]:.1f}°C")
 
 
 if __name__ == '__main__':
